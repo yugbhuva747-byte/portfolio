@@ -20,7 +20,10 @@ require_once __DIR__ . '/../includes/config.php';
 
     <!-- Act 3: final frame (name sits BEHIND the portrait) -->
     <div class="hero-final">
-      <div class="final-name" data-final="YUG BHUVA." aria-hidden="true"></div>
+      <div class="final-name" aria-hidden="true">
+        <div class="final-group final-group--left" data-word="YUG"></div>
+        <div class="final-group final-group--right" data-word="BHUVA."></div>
+      </div>
       <p class="final-copy">Full stack developer in Ahmedabad.<br>Django, PHP &amp; motion that feels alive.</p>
       <a class="final-cta text-cta" href="<?= url('work.php') ?>">SEE THE WORK <span>↘</span></a>
     </div>
@@ -176,19 +179,50 @@ require_once __DIR__ . '/../includes/config.php';
 @keyframes nudge { 50% { transform: translateY(5px); } }
 
 /* ---------- Act 3: final frame ---------- */
-.hero-final { position: absolute; inset: 0; pointer-events: none; }   /* no z-index: children layer inside the sticky */
+.hero-final { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
 .final-name {
-  position: absolute; left: 0; right: 0; top: 47%; transform: translateY(-50%); z-index: 1;
-  text-align: center; white-space: nowrap; line-height: .95; padding: 0 .05em .14em; overflow: hidden;
-  font-size: clamp(90px, 17.5vw, 310px); perspective: 900px;
+  position: absolute; left: 0; right: 0; top: 48%; transform: translateY(-50%);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 var(--pad); pointer-events: none;
+  font-family: var(--display);
+  font-size: clamp(80px, 16vw, 290px);
+  line-height: .9;
+  letter-spacing: -.045em;
+  perspective: 900px;
+  overflow: hidden;
 }
+.final-group {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-bottom: .08em;
+}
+.final-group--left { justify-content: flex-start; }
+.final-group--right { justify-content: flex-end; }
 .final-name .fch {
-  display: inline-block; opacity: 0; transform-origin: 50% 100%;
-  color: transparent; -webkit-text-stroke: 1.5px var(--ink, #141414); will-change: transform, opacity;
+  display: inline-block;
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  color: var(--ink, #141414);
+  -webkit-text-stroke: 0;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translateY(120%) rotateX(-85deg);
 }
-.final-name .fch.dot { color: var(--red); -webkit-text-stroke: 0; }
-.final-copy { position: absolute; left: var(--pad); bottom: 76px; z-index: 6; margin: 0; max-width: 260px; font-size: 11px; line-height: 1.7; opacity: 0; }
-.final-cta { position: absolute; right: var(--pad); bottom: 72px; z-index: 6; font-size: 10px; opacity: 0; pointer-events: none; }
+.final-name .fch.dot { color: var(--red); }
+.final-copy {
+  position: absolute; left: var(--pad); bottom: 76px; z-index: 6; margin: 0;
+  max-width: 260px; font-size: 11px; line-height: 1.7; opacity: 0;
+  transform: translateY(16px); transition: opacity .6s ease, transform .6s ease;
+}
+.final-cta {
+  position: absolute; right: var(--pad); bottom: 72px; z-index: 6;
+  font-size: 10px; opacity: 0; pointer-events: none;
+  transform: translateY(16px); transition: opacity .6s ease, transform .6s ease;
+}
+.final-copy.is-shown, .final-cta.is-shown { opacity: 1; transform: translateY(0); }
+.final-cta.is-shown { pointer-events: auto; }
 
 @media (max-width: 1100px) {
   .hero-side-note { position: static; margin-top: 25px; display: flex; max-width: none; gap: 30px; }
@@ -197,6 +231,7 @@ require_once __DIR__ . '/../includes/config.php';
   .hero-line { font-size: min(11.6vw, 14vh); }
   .hero-layout { gap: 5vw; }
   .hero-bottom > span { margin-right: 6vw; }
+  .final-name { font-size: clamp(65px, 15vw, 190px); }
 }
 
 @media (max-width: 760px) {
@@ -227,7 +262,7 @@ require_once __DIR__ . '/../includes/config.php';
   .hero-bottom > span { display: none; }
   .hero-bottom .text-cta { width: auto; gap: 25px; font-size: 8px; }
   .scroll-cue { font-size: 7px; gap: 15px; }
-  .final-name { font-size: 19vw; top: 44%; }
+  .final-name { font-size: clamp(40px, 13vw, 84px); top: 50%; }
   .final-copy { font-size: 9px; bottom: 64px; max-width: 150px; }
   .final-cta { font-size: 8px; bottom: 60px; }
 }
@@ -263,12 +298,14 @@ require_once __DIR__ . '/../includes/config.php';
   });
 
   /* ---- Final name letters (hidden until act 3) ---- */
-  const finalName = hero.querySelector('[data-final]');
-  [...finalName.dataset.final].forEach(c => {
-    const s = document.createElement('span');
-    s.className = 'fch' + (c === '.' ? ' dot' : '');
-    s.textContent = c === ' ' ? '\u00A0' : c;
-    finalName.appendChild(s);
+  const finalGroups = hero.querySelectorAll('.final-group[data-word]');
+  finalGroups.forEach(grp => {
+    [...grp.dataset.word].forEach(c => {
+      const s = document.createElement('span');
+      s.className = 'fch' + (c === '.' ? ' dot' : '');
+      s.textContent = c === ' ' ? '\u00A0' : c;
+      grp.appendChild(s);
+    });
   });
 
   /* ---- Orbiting ring ---- */
@@ -322,6 +359,40 @@ require_once __DIR__ . '/../includes/config.php';
   const fcta = hero.querySelector('.final-cta');
 
   let target = 0, cur = 0, px = 0, py = 0, tx = 0, ty = 0, visible = true, dx = 0, dy = 0;
+  let nameShown = false, nameTween = null;
+
+  const showFinalName = () => {
+    if (nameShown) return;
+    nameShown = true;
+    fcopy?.classList.add('is-shown');
+    fcta?.classList.add('is-shown');
+
+    if (window.gsap && !document.body.classList.contains('motion-paused')) {
+      if (nameTween) nameTween.kill();
+      nameTween = gsap.fromTo(fch,
+        { yPercent: 120, rotateX: -85, opacity: 0, transformPerspective: 700, transformOrigin: '50% 100%' },
+        { yPercent: 0, rotateX: 0, opacity: 1, duration: 1.15, stagger: 0.05, ease: 'power4.out', overwrite: true }
+      );
+    } else {
+      fch.forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+    }
+  };
+
+  const hideFinalName = () => {
+    if (!nameShown) return;
+    nameShown = false;
+    fcopy?.classList.remove('is-shown');
+    fcta?.classList.remove('is-shown');
+
+    if (window.gsap && !document.body.classList.contains('motion-paused')) {
+      if (nameTween) nameTween.kill();
+      nameTween = gsap.to(fch, {
+        yPercent: 120, rotateX: -85, opacity: 0, duration: 0.45, stagger: { each: 0.025, from: 'end' }, ease: 'power3.in', overwrite: true
+      });
+    } else {
+      fch.forEach(c => { c.style.opacity = '0'; c.style.transform = 'translateY(120%) rotateX(-85deg)'; });
+    }
+  };
 
   /* how far the portrait must travel to sit in the middle of the screen */
   const measure = () => {
@@ -354,7 +425,7 @@ require_once __DIR__ . '/../includes/config.php';
     ty += (py - ty) * .06;
 
     const p = cur, W = innerWidth;
-    const e1 = ease(seg(p, .04, .45)), e2 = ease(seg(p, .40, .80)), e3 = seg(p, .62, .92);
+    const e1 = ease(seg(p, .04, .45)), e2 = ease(seg(p, .40, .80));
 
     /* Act 1: each line flies off in 3D, alternating directions */
     lines.forEach((l, i) => {
@@ -385,16 +456,12 @@ require_once __DIR__ . '/../includes/config.php';
     floor.style.backgroundPosition = `${tx * -30}px ${p * 900 + time * .02}px`;
     floor.style.opacity = .8 - e1 * .5;
 
-    /* Act 3: the name rises letter by letter behind the portrait */
-    fch.forEach((c, i) => {
-      const t = ease(seg(e3, i * .07, i * .07 + .45));
-      c.style.opacity = t;
-      c.style.transform = `translateY(${(1 - t) * 110}%) rotateX(${(1 - t) * -70}deg)`;
-    });
-    const a1 = ease(seg(e3, .5, 1));
-    fcopy.style.opacity = a1; fcopy.style.transform = `translateY(${(1 - a1) * 16}px)`;
-    fcta.style.opacity = a1;  fcta.style.transform = `translateY(${(1 - a1) * 16}px)`;
-    fcta.style.pointerEvents = a1 > .6 ? 'auto' : 'none';
+    /* Act 3: When hero portrait ends animation, reveal text in 3D footer style */
+    if (e2 >= 0.85 || p >= 0.68) {
+      showFinalName();
+    } else if (p < 0.48) {
+      hideFinalName();
+    }
 
     fades.forEach(f => { f.style.opacity = 1 - clamp((p - .3) * 3.5, 0, 1); });
     bar.style.transform = `scaleX(${p})`;
