@@ -4,10 +4,16 @@
  * Yug Bhuva Portfolio
  */
 
-// Determine base URL dynamically so it works in root, in /php/, or in subdirectories
+// Determine base URL dynamically so it works on Vercel, in root, or in local subdirectories (e.g. XAMPP)
 if (!function_exists('getBaseUrl')) {
     function getBaseUrl(): string {
+        if (!empty($_SERVER['VERCEL']) || (!empty($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'], '/api') === 0)) {
+            return '';
+        }
         $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+        if ($scriptDir === '/api' || $scriptDir === '\\api') {
+            return '';
+        }
         return rtrim($scriptDir, '/') ?: '';
     }
 }
@@ -17,9 +23,9 @@ if (!function_exists('url')) {
         $base = getBaseUrl();
         $path = ltrim($path, '/');
         if (empty($path)) {
-            return $base ?: '/';
+            return $base ? $base : '/';
         }
-        return ($base ? $base . '/' : '') . $path;
+        return ($base ? $base . '/' : '/') . $path;
     }
 }
 
