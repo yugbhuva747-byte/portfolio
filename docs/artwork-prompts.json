@@ -1,0 +1,7 @@
+{
+  "mode": "built-in image_gen",
+  "prompts": [
+    "Use case: photorealistic-natural\nAsset type: Conceptual project cover artwork for an education and placement project in a white editorial developer portfolio; not a screenshot of software.\nPrimary request: Landscape 1536x1024 editorial architectural photograph of a sculptural white concrete staircase ascending through bright sunlight with a single vivid vermilion red handrail, within a clean white architectural volume.\nStyle/medium: Photoreal architectural photography, real tactile white concrete texture, very minimal and bold composition.\nLighting/mood: Bright sunlight with dramatic sharp shadows.\nColor palette: White, natural dark shadows, a single vivid vermilion red handrail.\nConstraints: No humans, no text, no logos, no UI, no 3D-render aesthetic.",
+    "Use case: product-mockup\nAsset type: Conceptual project cover artwork for a watch e-commerce project in a white editorial developer portfolio; not a screenshot of software.\nPrimary request: Landscape 1536x1024 very premium studio macro photograph of a generic unbranded stainless-steel analog wristwatch laid diagonally on vivid vermilion red folded paper.\nStyle/medium: Editorial product photography, real tactile softly brushed steel textures, white highlights, crisp hard light, refined premium quality.\nComposition/framing: Diagonal watch composition on folded paper filling landscape frame.\nConstraints: NO logos, no readable branding, no fake browser or UI, no 3D render aesthetic."
+  ]
+}

@@ -1,0 +1,135 @@
+[
+  {
+    "id": "placement",
+    "name": "College Placement Portal",
+    "category": "fullstack",
+    "label": "DJANGO / FULL STACK",
+    "tags": [
+      "Django",
+      "Python",
+      "SQLite",
+      "CSS"
+    ],
+    "art": "YOUR NEXT<em>chapter.</em>",
+    "bottom": "STUDENTS. SKILLS. OPPORTUNITIES.",
+    "description": "A placement management application with student registration, job listings, aptitude quizzes, dashboards, and an admin panel. Built during my internship at ExcelPTP, connecting frontend interfaces with Django authentication and database management.",
+    "url": "https://placement-portal-zf13.onrender.com",
+    "link": "Open project"
+  },
+  {
+    "id": "api",
+    "name": "Restaurant REST API",
+    "category": "fullstack",
+    "label": "BACKEND / REST API",
+    "tags": [
+      "Django REST Framework",
+      "Python",
+      "JSON",
+      "Token authentication"
+    ],
+    "art": "{ menus,<br>orders,<br>possibilities }",
+    "bottom": "STRUCTURE BEHIND EVERY EXPERIENCE.",
+    "description": "A RESTful API for a restaurant system, covering menus, orders, and categories. Built with Django REST Framework using serializers, viewsets, and token authentication.",
+    "url": "https://restaurant-rest-api-vstu.onrender.com",
+    "link": "Open API"
+  },
+  {
+    "id": "shop",
+    "name": "Watch E-Commerce",
+    "category": "frontend",
+    "label": "FRONTEND / E-COMMERCE",
+    "tags": [
+      "HTML",
+      "CSS",
+      "Bootstrap",
+      "Responsive design"
+    ],
+    "art": "A matter<em>of time.</em>",
+    "bottom": "PRODUCTS. DETAILS. DISCOVERY.",
+    "description": "A responsive e-commerce interface with product listing pages, a cart interface, and layouts designed for desktop and mobile. A study in product presentation and clear shopping interfaces.",
+    "url": "https://watch-e-commerce-t0of.onrender.com",
+    "link": "Open demo"
+  },
+  {
+    "id": "chat",
+    "name": "AI Chatbot",
+    "category": "ai",
+    "label": "PYTHON / ARTIFICIAL INTELLIGENCE",
+    "tags": [
+      "Python",
+      "AI APIs",
+      "Automation"
+    ],
+    "art": "Hello,<em>possibility.</em>",
+    "bottom": "A CONVERSATION WITH WHAT’S NEXT.",
+    "description": "An AI-powered chatbot built with Python and AI APIs. This ongoing experiment explores conversational interfaces, automation, and real-time responses.",
+    "url": "https://groq-bot-di5c.onrender.com",
+    "link": "Open project",
+    "status": "In progress"
+  },
+  {
+    "id": "portfolio",
+    "name": "Portfolio — First Edition",
+    "category": "frontend",
+    "label": "DJANGO / PERSONAL WEBSITE",
+    "tags": [
+      "Django",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "art": "yug<span style=\"color:#f77740\">.</span>",
+    "bottom": "THE START OF MY DIGITAL STORY.",
+    "description": "My original personal portfolio, built with Django templates, HTML, CSS, and JavaScript. It brought together my projects, skills, and background with glassmorphism and animated interfaces.",
+    "url": "https://portfolio-1-1lh8.onrender.com",
+    "link": "View first edition"
+  },
+  {
+    "id": "creative",
+    "name": "Creative Giant — UI Study",
+    "category": "frontend",
+    "label": "FRONTEND / CREATIVE EXPLORATION",
+    "tags": [
+      "HTML",
+      "CSS",
+      "Animations"
+    ],
+    "art": "THINK<em>beyond.</em>",
+    "bottom": "EXPERIMENTS IN EXPRESSION.",
+    "description": "A creative frontend study exploring gradients, glassmorphism, animation, and expressive visual design. Creative Giants is the design reference linked in my original portfolio.",
+    "url": "https://www.creativegiants.art/",
+    "link": "View design reference"
+  },
+  {
+    "id": "data",
+    "name": "Data Extract Site",
+    "category": "ai",
+    "label": "PYTHON / DATA EXTRACTION",
+    "tags": [
+      "Python",
+      "Scraping",
+      "Automation",
+      "APIs"
+    ],
+    "art": "From noise.<br><em>To clarity.</em>",
+    "bottom": "EXTRACT. PROCESS. UNDERSTAND.",
+    "description": "An ongoing Python project for extracting and processing data from websites and documents using automation and scraping tools.",
+    "status": "In development"
+  },
+  {
+    "id": "face",
+    "name": "Face Recognition System",
+    "category": "ai",
+    "label": "COMPUTER VISION / PYTHON",
+    "tags": [
+      "Python",
+      "OpenCV",
+      "AI",
+      "Attendance"
+    ],
+    "art": "A familiar<em>face.</em>",
+    "bottom": "RECOGNITION MEETS REAL-WORLD UTILITY.",
+    "description": "A computer vision project exploring real-time face detection, recognition, and employee attendance tracking with Python and OpenCV.",
+    "status": "In development"
+  }
+]
