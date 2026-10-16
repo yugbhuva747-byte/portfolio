@@ -188,8 +188,8 @@ require_once __DIR__ . '/../includes/config.php';
   position: absolute; left: 0; right: 0; top: 48%; transform: translateY(-50%);
   display: flex; justify-content: space-between; align-items: center;
   padding: 0 var(--pad); pointer-events: none;
-  font: 400 clamp(80px, 16vw, 290px) / 1 var(--display);
-  letter-spacing: -.045em;
+  font: 400 clamp(45px, min(8.2vw, 12.8vh), 150px) / 1 var(--display);
+  letter-spacing: -.03em;
 }
 .final-group {
   display: flex;
@@ -227,7 +227,7 @@ require_once __DIR__ . '/../includes/config.php';
   .hero-line { font-size: min(11.6vw, 14vh); }
   .hero-layout { gap: 5vw; }
   .hero-bottom > span { margin-right: 6vw; }
-  .final-name { font-size: clamp(65px, 15vw, 190px); }
+  .final-name { font-size: clamp(35px, min(7.5vw, 11vh), 96px); }
 }
 
 @media (max-width: 760px) {
@@ -258,7 +258,7 @@ require_once __DIR__ . '/../includes/config.php';
   .hero-bottom > span { display: none; }
   .hero-bottom .text-cta { width: auto; gap: 25px; font-size: 8px; }
   .scroll-cue { font-size: 7px; gap: 15px; }
-  .final-name { font-size: clamp(40px, 13vw, 84px); top: 50%; }
+  .final-name { font-size: clamp(22px, 6.2vw, 38px); top: 50%; }
   .final-copy { font-size: 9px; bottom: 64px; max-width: 150px; }
   .final-cta { font-size: 8px; bottom: 60px; }
 }
