@@ -20,9 +20,13 @@ require_once __DIR__ . '/../includes/config.php';
 
     <!-- Act 3: final frame (name sits BEHIND the portrait) -->
     <div class="hero-final">
-      <div class="final-name" aria-hidden="true">
-        <div class="final-group final-group--left" data-word="YUG"></div>
-        <div class="final-group final-group--right" data-word="BHUVA."></div>
+      <div class="final-name" aria-label="YUG BHUVA.">
+        <div class="final-group final-group--left">
+          <span class="fch">Y</span><span class="fch">U</span><span class="fch">G</span>
+        </div>
+        <div class="final-group final-group--right">
+          <span class="fch">B</span><span class="fch">H</span><span class="fch">U</span><span class="fch">V</span><span class="fch">A</span><span class="fch dot">.</span>
+        </div>
       </div>
       <p class="final-copy">Full stack developer in Ahmedabad.<br>Django, PHP &amp; motion that feels alive.</p>
       <a class="final-cta text-cta" href="<?= url('work.php') ?>">SEE THE WORK <span>↘</span></a>
@@ -184,19 +188,13 @@ require_once __DIR__ . '/../includes/config.php';
   position: absolute; left: 0; right: 0; top: 48%; transform: translateY(-50%);
   display: flex; justify-content: space-between; align-items: center;
   padding: 0 var(--pad); pointer-events: none;
-  font-family: var(--display);
-  font-size: clamp(80px, 16vw, 290px);
-  line-height: .9;
+  font: 400 clamp(80px, 16vw, 290px) / 1 var(--display);
   letter-spacing: -.045em;
-  perspective: 900px;
-  overflow: hidden;
 }
 .final-group {
   display: flex;
   align-items: baseline;
   white-space: nowrap;
-  overflow: hidden;
-  padding-bottom: .08em;
 }
 .final-group--left { justify-content: flex-start; }
 .final-group--right { justify-content: flex-end; }
@@ -207,8 +205,6 @@ require_once __DIR__ . '/../includes/config.php';
   color: var(--ink, #141414);
   -webkit-text-stroke: 0;
   will-change: transform, opacity;
-  opacity: 0;
-  transform: translateY(120%) rotateX(-85deg);
 }
 .final-name .fch.dot { color: var(--red); }
 .final-copy {
@@ -297,17 +293,6 @@ require_once __DIR__ . '/../includes/config.php';
     out.forEach(o => line.appendChild(o));
   });
 
-  /* ---- Final name letters (hidden until act 3) ---- */
-  const finalGroups = hero.querySelectorAll('.final-group[data-word]');
-  finalGroups.forEach(grp => {
-    [...grp.dataset.word].forEach(c => {
-      const s = document.createElement('span');
-      s.className = 'fch' + (c === '.' ? ' dot' : '');
-      s.textContent = c === ' ' ? '\u00A0' : c;
-      grp.appendChild(s);
-    });
-  });
-
   /* ---- Orbiting ring ---- */
   const orbit = hero.querySelector('[data-orbit]');
   const words = ['CODE', 'DESIGN', 'MOTION', 'DJANGO', 'PHP', 'GSAP', 'THINK', 'BUILD', 'SHIP', 'CRAFT', 'DETAIL', 'PLAY'];
@@ -341,8 +326,8 @@ require_once __DIR__ . '/../includes/config.php';
   /* ============================================================
      Scroll + pointer engine: 3 acts
        Act 1  0.00-0.45  headline breaks apart in 3D, portrait leans in
-       Act 2  0.40-0.80  portrait glides to centre, turns to camera, goes full colour, ring becomes a halo
-       Act 3  0.62-0.92  YUG BHUVA rises behind the portrait, copy + CTA arrive. Then a hold.
+       Act 2  0.35-0.70  portrait glides to centre, turns to camera, goes full colour, ring becomes a halo
+       Act 3  0.38-0.95  YUG BHUVA rises behind the portrait in 3D footer style, copy + CTA arrive
      ============================================================ */
   const lines = [...hero.querySelectorAll('.hero-line')];
   const letters = [...hero.querySelectorAll('.hero-line .ch')];
@@ -358,6 +343,11 @@ require_once __DIR__ . '/../includes/config.php';
   const fcopy = hero.querySelector('.final-copy');
   const fcta = hero.querySelector('.final-cta');
 
+  /* Initialize final name in 3D perspective flip (hidden until act 3 starts) */
+  if (window.gsap && !document.body.classList.contains('motion-paused')) {
+    gsap.set(fch, { yPercent: 120, rotateX: -85, opacity: 0, transformPerspective: 700, transformOrigin: '50% 100%' });
+  }
+
   let target = 0, cur = 0, px = 0, py = 0, tx = 0, ty = 0, visible = true, dx = 0, dy = 0;
   let nameShown = false, nameTween = null;
 
@@ -369,10 +359,15 @@ require_once __DIR__ . '/../includes/config.php';
 
     if (window.gsap && !document.body.classList.contains('motion-paused')) {
       if (nameTween) nameTween.kill();
-      nameTween = gsap.fromTo(fch,
-        { yPercent: 120, rotateX: -85, opacity: 0, transformPerspective: 700, transformOrigin: '50% 100%' },
-        { yPercent: 0, rotateX: 0, opacity: 1, duration: 1.15, stagger: 0.05, ease: 'power4.out', overwrite: true }
-      );
+      nameTween = gsap.to(fch, {
+        yPercent: 0,
+        rotateX: 0,
+        opacity: 1,
+        duration: 1.15,
+        stagger: 0.05,
+        ease: 'power4.out',
+        overwrite: true
+      });
     } else {
       fch.forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
     }
@@ -387,7 +382,13 @@ require_once __DIR__ . '/../includes/config.php';
     if (window.gsap && !document.body.classList.contains('motion-paused')) {
       if (nameTween) nameTween.kill();
       nameTween = gsap.to(fch, {
-        yPercent: 120, rotateX: -85, opacity: 0, duration: 0.45, stagger: { each: 0.025, from: 'end' }, ease: 'power3.in', overwrite: true
+        yPercent: 120,
+        rotateX: -85,
+        opacity: 0,
+        duration: 0.45,
+        stagger: { each: 0.02, from: 'end' },
+        ease: 'power3.in',
+        overwrite: true
       });
     } else {
       fch.forEach(c => { c.style.opacity = '0'; c.style.transform = 'translateY(120%) rotateX(-85deg)'; });
@@ -456,10 +457,10 @@ require_once __DIR__ . '/../includes/config.php';
     floor.style.backgroundPosition = `${tx * -30}px ${p * 900 + time * .02}px`;
     floor.style.opacity = .8 - e1 * .5;
 
-    /* Act 3: When hero portrait ends animation, reveal text in 3D footer style */
-    if (e2 >= 0.85 || p >= 0.68) {
+    /* Act 3: When hero portrait moves into center and ends animation, reveal text in 3D footer style */
+    if (p >= 0.38 || e2 >= 0.45) {
       showFinalName();
-    } else if (p < 0.48) {
+    } else if (p < 0.22) {
       hideFinalName();
     }
 
